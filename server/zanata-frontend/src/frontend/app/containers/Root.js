@@ -4,6 +4,7 @@ import { Router, Route, Redirect } from 'react-router'
 import App from '../containers/App'
 import Glossary from '../containers/Glossary'
 import Languages from '../containers/Languages'
+import ManageUsers from '../containers/ManageUsers'
 import Explore from '../containers/Explore'
 import UserProfile from '../containers/UserProfile'
 import { View } from 'zanata-ui'
@@ -20,13 +21,13 @@ export default class Root extends Component {
         <View>
           <Router history={history}>
             <Route component={App} >
-              <Route path='explore' component={Explore} />
-              <Route path='glossary/project/:projectSlug'
-                component={Glossary} />
               <Route path='glossary' component={Glossary} />
               <Route path='languages' component={Languages} />
-              <Route path='profile/view/:username' component={UserProfile} />
-              <Redirect from='profile' to={`profile/view/${username}`} />
+              <Route path='manageusers' component={ManageUsers} />
+              <Route path='profile/:username' component={UserProfile} />
+              <Route path='explore' component={Explore} />
+              <Redirect from='profile' to={`profile/${username}`} />
+              <Redirect from='/' to={`profile/${username}`} />
             </Route>
           </Router>
         </View>
