@@ -9,7 +9,7 @@ module.exports = {
   },
   module: {
     preLoaders: [
-     {
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'eslint'
@@ -21,8 +21,8 @@ module.exports = {
         exclude: /node_modules/,
         include: path.join(__dirname, 'app'),
         loader: 'atomic-loader?configPath=' + __dirname +
-          '/atomicCssConfig.js' +
-          '!babel?presets[]=react,presets[]=stage-0,presets[]=es2015'
+        '/atomicCssConfig.js' +
+        '!babel?presets[]=react,presets[]=stage-0,presets[]=es2015'
       },
       {
         test: /\.css$/,
