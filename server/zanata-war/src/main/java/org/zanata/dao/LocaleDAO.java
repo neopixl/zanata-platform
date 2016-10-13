@@ -108,7 +108,7 @@ public class LocaleDAO extends AbstractDAOImpl<HLocale, Long> {
     private String buildCountSearchQuery(String filter,
         List<LocaleSortField> sortFields, boolean onlyActive) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("select count(*) from HLocale");
+        queryBuilder.append("select count(*) from HLocale l");
         queryBuilder.append(buildSearchQuery(filter, sortFields, onlyActive));
         return queryBuilder.toString();
     }
@@ -116,7 +116,7 @@ public class LocaleDAO extends AbstractDAOImpl<HLocale, Long> {
     private String buildResultSearchQuery(String filter,
         List<LocaleSortField> sortFields, boolean onlyActive) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("from HLocale");
+        queryBuilder.append("from HLocale l");
         queryBuilder.append(buildSearchQuery(filter, sortFields, onlyActive));
         return queryBuilder.toString();
     }
@@ -132,15 +132,15 @@ public class LocaleDAO extends AbstractDAOImpl<HLocale, Long> {
         boolean joinQuery = false;
         if (StringUtils.isNotBlank(filter)) {
             joinQuery = true;
-            queryBuilder.append(" lower(localeId) like :query")
-                    .append(" or lower(displayName) like :query")
-                    .append(" or lower(nativeName) like :query");
+            queryBuilder.append(" lower(l.localeId) like :query")
+                    .append(" or lower(l.displayName) like :query")
+                    .append(" or lower(l.nativeName) like :query");
         }
         if (onlyActive) {
             if (joinQuery) {
                 queryBuilder.append(" and");
             }
-            queryBuilder.append(" active = true");
+            queryBuilder.append(" l.active = true");
         }
 
         if (sortFields != null && !sortFields.isEmpty()) {
