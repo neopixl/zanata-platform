@@ -1,19 +1,17 @@
 import React, { PropTypes } from 'react'
 import NavItem from './NavItem'
 import { flattenThemeClasses } from 'zanata-ui'
+// import { startsWith } from 'lodash'
 import { getDswid } from '../../utils/UrlHelper'
 
 const dswid = getDswid()
 
 /**
- * Item properties:
- *
- * - link: path to use for JSF pages, or when internalLink is not specified
- *         OR a key in props.links to look up the path to use.
- *         (FIXME inconsistent and error-prone, split this into 2 properties)
- * - internalLink: path to use when the Nav component is part of the main
- *                 frontend app
+ * URL path for frontend
+ * e.g. http://localhost:8080/app/#explore
  */
+const prefixPath = '/a/'
+
 const items = [
   {
     icon: 'zanata',
@@ -25,7 +23,7 @@ const items = [
   },
   {
     icon: 'search',
-    link: '/explore' + dswid,
+    link: prefixPath + dswid + '#explore',
     internalLink: '/explore',
     title: 'Explore',
     auth: 'public',
@@ -58,7 +56,7 @@ const items = [
   {
     small: true,
     icon: 'user',
-    link: '/profile' + dswid,
+    link: prefixPath + dswid + '#profile',
     internalLink: '/profile',
     title: 'Profile',
     auth: 'loggedin',
@@ -66,7 +64,7 @@ const items = [
   },
   {
     icon: 'glossary',
-    link: '/glossary' + dswid,
+    link: prefixPath + dswid + '#glossary',
     internalLink: '/glossary',
     title: 'Glossary',
     auth: 'loggedin',
@@ -74,7 +72,7 @@ const items = [
   },
   {
     icon: 'language',
-    link: '/languages' + dswid,
+    link: prefixPath + dswid + '#languages',
     internalLink: '/languages',
     title: 'Languages',
     auth: 'loggedin',
@@ -104,7 +102,7 @@ const items = [
   {
     small: true,
     icon: 'ellipsis',
-    link: '/info',
+    link: prefixPath + 'more',
     title: 'More',
     auth: 'public',
     id: 'nav_more'
@@ -166,7 +164,8 @@ const Nav = ({
           }
 
           const useHref = isJsfPage || !item.internalLink
-          const isActive = active.includes(link)
+          const isActive = active === link
+
           return <NavItem key={itemId}
             loading={loading}
             id={item.id}
@@ -191,8 +190,6 @@ Nav.propTypes = {
   active: PropTypes.string,
   /**
    * Object of links
-   * FIXME this looks wrong, 'context' is prepended to all links so they
-   *       cannot include the protocol, server or port.
    * e.g.
    * {
    * 'context': http://localhost:8080,

@@ -57,13 +57,14 @@ const getUserStatistics = (username, fromDate, toDate) => {
   }
 }
 
-const loadUserStats = (username, dateRangeOption) => {
+const loadUserStats = (username, dateRange) => {
   return (dispatch, getState) => {
-    const dateRange = utilsDate.getDateRangeFromOption(dateRangeOption)
-    dispatch(getUserStatistics(username, dateRange.fromDate, dateRange.toDate))
+    const dates = utilsDate.getDateRangeFromOption(dateRange)
+    dispatch(getUserStatistics(username, dates.fromDate, dates.toDate))
   }
 }
 
+<<<<<<< HEAD
 const getLocaleDetail = (localeId) => {
   const endpoint = window.config.baseUrl + window.config.apiRoot +
     '/locales/locale/' + localeId
@@ -92,6 +93,9 @@ const getLocaleDetail = (localeId) => {
 }
 
 const getUserInfo = (dispatch, username, dateRangeOption) => {
+=======
+const getUserInfo = (dispatch, username, dateRange) => {
+>>>>>>> 07e2205ea91bc94f7b331dc29db3f2b11986d89d
   const endpoint = window.config.baseUrl + window.config.apiRoot + '/user' +
     (isEmpty(username) ? '' : '/' + username)
 
@@ -103,10 +107,14 @@ const getUserInfo = (dispatch, username, dateRangeOption) => {
         const contentType = res.headers.get('Content-Type')
         if (contentType && includes(contentType, 'json')) {
           return res.json().then((json) => {
+<<<<<<< HEAD
             forEach(json.languageTeams, function (localeId) {
               dispatch(getLocaleDetail(localeId))
             })
             dispatch(loadUserStats(username, dateRangeOption))
+=======
+            dispatch(loadUserStats(username, dateRange))
+>>>>>>> 07e2205ea91bc94f7b331dc29db3f2b11986d89d
             return json
           })
         }
@@ -128,7 +136,7 @@ export const profileInitialLoad = (username) => {
     if (isEmpty(username) && !config.permission.isLoggedIn) {
       // redirect to login screen if no username is found url
       // and user is not logged in
-      window.location = config.baseUrl + config.links.loginUrl
+      window.location = config.baseUrl + config.links.loginUrl + '#profile'
     } else {
       dispatch(getUserInfo(dispatch, username,
         getState().profile.dateRange))
@@ -136,11 +144,11 @@ export const profileInitialLoad = (username) => {
   }
 }
 
-export const dateRangeChanged = (dataRangeOption) => {
+export const dateRangeChanged = (dateRange) => {
   return (dispatch, getState) => {
     const username = getState().profile.user.username
-    dispatch(updateDateRange(dataRangeOption))
-    dispatch(loadUserStats(username, dataRangeOption))
+    dispatch(updateDateRange(dateRange))
+    dispatch(loadUserStats(username, dateRange))
   }
 }
 

@@ -29,16 +29,11 @@ class Entry extends Component {
     const localeDetails = locale.localeDetails
     /* eslint-disable react/jsx-no-bind */
     const isUserInTeam = includes(userLanguageTeams, localeDetails.localeId)
-
-    const url = window.config.baseUrl + '/language/view/' +
-      localeDetails.localeId
     return (
-      <tr name='language-entry'>
+      <tr>
         <td>
-          <a href={url} id={'language-name-' + localeDetails.localeId}>
-            <span name='language-name'>
-              {localeDetails.localeId} [{localeDetails.nativeName}]
-            </span>
+          <a href=''>
+            <span>{localeDetails.localeId} [{localeDetails.nativeName}]</span>
             {localeDetails.enabledByDefault &&
               <span className='greentext badge Mstart(rq)'>
                 DEFAULT
