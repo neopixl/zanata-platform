@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route, Redirect } from 'react-router'
 import App from '../containers/App'
+import Loader from '../containers/Loader'
 import Glossary from '../containers/Glossary'
 import ManageUsers from '../containers/ManageUsers'
 import ManageRoles from '../containers/ManageRoles'
@@ -22,12 +23,15 @@ export default class Root extends Component {
         <View>
           <Router history={history}>
             <Route component={App} >
+              <Route path='loader' component={Loader} />
+              <Route path='explore' component={Explore} />
               <Route path='glossary' component={Glossary} />
               <Route path='manageusers' component={ManageUsers} />
               <Route path='manageroles' component={ManageRoles} />
               <Route path='managesearch' component={ManageSearch} />
               <Route path='profile/:username' component={UserProfile} />
-              <Route path='explore' component={Explore} />
+              <Route path='project/:projectSlug/glossary'
+                component={Glossary} />
               <Redirect from='profile' to={`profile/${username}`} />
               <Redirect from='/' to={`profile/${username}`} />
             </Route>
