@@ -3,6 +3,8 @@ import { Provider } from 'react-redux'
 import { Router, Route, Redirect } from 'react-router'
 import App from '../containers/App'
 import Glossary from '../containers/Glossary'
+import Languages from '../containers/Languages'
+import StyleGuide from '../containers/StyleGuide'
 import Users from '../containers/Admin/Users'
 import Roles from '../containers/Admin/Roles'
 import Search from '../containers/Admin/Search'
@@ -26,14 +28,15 @@ export default class Root extends Component {
               <Route path='explore' component={Explore} />
               <Route path='testmodal' component={TestModal} />
               <Route path='glossary' component={Glossary} />
+              <Route path='languages' component={Languages} />
+              <Route path='styleguide' component={StyleGuide} />
+              <Route path='profile/view/:username' component={UserProfile} />
+              <Route path='project/:projectSlug/glossary'
+                component={Glossary} />
               <Route path='users' component={Users} />
               <Route path='roles' component={Roles} />
               <Route path='search' component={Search} />
-              <Route path='profile/:username' component={UserProfile} />
-              <Route path='project/:projectSlug/glossary'
-                component={Glossary} />
-              <Redirect from='profile' to={`profile/${username}`} />
-              <Redirect from='/' to={`profile/${username}`} />
+              <Redirect from='profile' to={`profile/view/${username}`} />
             </Route>
           </Router>
         </View>
