@@ -204,13 +204,9 @@ public class Deployments {
                 || context.contains("TestAsyncBean")
                 || context.contains("ResourceTestObjectFactory")
                 // unit test classes
-                || !unitTestsAndUnitTestInnerClasses(context);
-    }
-
-    private static boolean unitTestsAndUnitTestInnerClasses(String context) {
-        return context.matches(".+Test(s)?\\.class$") ||
-        // inner classes of unit test classes
-        context.matches(".+Test(s)?\\$.*\\.class$");
+                || !(context.matches(".+Test(s)?\\.class$") ||
+                // inner classes of unit test classes
+                context.matches(".+Test(s)?\\$.*\\.class$"));
     }
 
     private static boolean notUnusedGwtClientCode(ArchivePath object) {

@@ -1,16 +1,16 @@
 package org.zanata.maven;
 
-import org.apache.maven.plugins.annotations.Mojo;
 import org.zanata.client.commands.ConfigurableProjectOptions;
 import org.zanata.client.commands.ListLocalCommand;
 
-/* @Mojo commented out so that maven won't include this unfinished mojo in the plugin:
+/* Javadoc disabled so that maven won't include this unfinished mojo in the plugin:
  * [NOT YET IMPLEMENTED] Lists all local files in the project which are
  * considered to be Zanata documents. These are the files which will be sent to
  * Zanata when using the 'push' goal.
- * @author Sean Flanigan <a href="mailto:sflaniga@redhat.com">sflaniga@redhat.com</a>
+ *
+ * @goal list-local
+ * @author Sean Flanigan <sflaniga@redhat.com>
  */
-//@Mojo(name = "list-local", requiresProject = false)
 public class ListLocalMojo extends
         ConfigurableProjectMojo<ConfigurableProjectOptions> {
 

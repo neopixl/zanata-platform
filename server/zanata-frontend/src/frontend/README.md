@@ -4,20 +4,20 @@ This module contains: User profile page, Glossary page, and Zanata side menu bar
 
 ## To run/setup in nodeJS
 
-Navigate to `frontend`, run `make install`
+Navigate to `frontend/app`, run `npm install`
 
 ### To run in dev mode http://localhost:8000 (a HTTP server to serve index.html with webpack produced bundle.js)
 
 - need http://localhost:8080/zanata to run separately
-`make start`
+`npm start`
 
 ### Production Build
 
-`make build`
+`npm run build`
 
 ### Run styleguide
 
-`make styleguide-build` followed by `make styleguide-server`
+`npm run styleguide-build` follow by `npm run styleguide-server`
 
 
 ## To generate a jar dependency

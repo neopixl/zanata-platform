@@ -9,10 +9,5 @@ module.exports = _.merge({}, defaultConfig, {
         'NODE_ENV': JSON.stringify('development')
       }
     })
-  ]),
-
-  eslint: {
-    failOnError: false
-  }
-
+  ])
 })

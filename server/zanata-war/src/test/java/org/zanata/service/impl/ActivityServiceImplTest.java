@@ -33,7 +33,6 @@ import com.google.common.base.Throwables;
 
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.Session;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.InRequestScope;
 import org.jglue.cdiunit.deltaspike.SupportDeltaspikeCore;
 import org.junit.Before;
@@ -51,7 +50,6 @@ import org.zanata.events.TextFlowTargetStateEvent;
 import org.zanata.model.Activity;
 import org.zanata.model.type.EntityType;
 import org.zanata.test.CdiUnitRunner;
-import org.zanata.transaction.TransactionUtilImpl;
 import org.zanata.util.IServiceLocator;
 
 import javax.enterprise.inject.Produces;
@@ -64,7 +62,6 @@ import javax.transaction.UserTransaction;
  * @author Alex Eng <a href="mailto:aeng@redhat.com">aeng@redhat.com</a>
  */
 @RunWith(CdiUnitRunner.class)
-@AdditionalClasses(TransactionUtilImpl.class)
 @SupportDeltaspikeCore
 public class ActivityServiceImplTest extends ZanataDbunitJpaTest {
 

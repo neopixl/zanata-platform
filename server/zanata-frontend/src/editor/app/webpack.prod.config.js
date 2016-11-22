@@ -8,16 +8,6 @@ module.exports = _.merge({}, defaultConfig, {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        // TODO should look at whether the warnings can be fixed instead of suppressed
-        warnings: false
-      }
     })
-  ]),
-
-  eslint: {
-    failOnWarning: true,
-  }
+  ])
 })

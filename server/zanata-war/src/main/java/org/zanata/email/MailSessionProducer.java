@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, Red Hat, Inc. and individual contributors
+ * Copyright 2015, Red Hat, Inc. and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -18,36 +18,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.zanata.maven;
+package org.zanata.email;
 
-import org.zanata.client.commands.pull.PullOptions;
+import javax.annotation.Resource;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
+import javax.mail.Session;
 
 /**
- * Pulls translated text from Zanata.
- *
- * @goal pull
- * @author Sean Flanigan <sflaniga@redhat.com>
+ * @author Sean Flanigan <a href="mailto:sflaniga@redhat.com">sflaniga@redhat.com</a>
  */
-public class PullSimpleMojo extends AbstractPullMojo implements PullOptions {
+@ApplicationScoped
+public class MailSessionProducer {
 
-    /**
-     * Whether module processing should be enabled. This option is obsolete.
-     * Please use pull-module instead.
-     *
-     * @parameter expression="${zanata.enableModules}"
-     */
-    private boolean enableModules = false;
+    @Resource(mappedName = "java:jboss/mail/Default")
+    private Session session;
 
-    public PullSimpleMojo() {
-        if (enableModules) {
-            throw new RuntimeException(
-                    "Please use pull-module for module support");
-        }
+    @Produces
+    @Dependent
+    @Named("mailSession")
+    public Session getSession() {
+        return session;
     }
-
-    @Override
-    public boolean getEnableModules() {
-        return false;
-    }
-
 }

@@ -24,6 +24,7 @@ package org.zanata.service.impl;
 
 import java.util.Map;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.infinispan.manager.CacheContainer;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -39,6 +40,7 @@ import org.zanata.model.HLocale;
 import org.zanata.service.VersionLocaleKey;
 import org.zanata.service.VersionStateCache;
 import org.zanata.ui.model.statistic.WordStatistic;
+import org.zanata.util.IServiceLocator;
 
 import com.google.common.cache.CacheLoader;
 import org.zanata.util.Zanata;
@@ -62,11 +64,12 @@ public class VersionStateCacheImpl implements VersionStateCache {
 
     @Zanata
     private CacheContainer cacheContainer;
+    private final IServiceLocator serviceLocator;
     private final LocaleDAO localeDAO;
 
     // constructor for CDI
     public VersionStateCacheImpl() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     // Constructor for testing
@@ -74,9 +77,11 @@ public class VersionStateCacheImpl implements VersionStateCache {
     public VersionStateCacheImpl(
             CacheLoader<VersionLocaleKey, WordStatistic> versionStatisticLoader,
             @Zanata CacheContainer cacheContainer,
+            IServiceLocator serviceLocator,
             LocaleDAO localeDAO) {
         this.versionStatisticLoader = versionStatisticLoader;
         this.cacheContainer = cacheContainer;
+        this.serviceLocator = serviceLocator;
         this.localeDAO = localeDAO;
     }
 

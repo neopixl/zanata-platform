@@ -97,7 +97,7 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> findLatestVersionActivitiesByUser(long personId,
             List<Long> versionIds, int offset, int maxResults) {
         if (versionIds.isEmpty()) {
-            return Collections.emptyList();
+            return Collections.EMPTY_LIST;
         }
         return activityDAO.findLatestVersionActivitiesByUser(personId,
                 versionIds, offset, maxResults);

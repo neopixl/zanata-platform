@@ -58,12 +58,6 @@ module.exports = {
     // TODO remove when components migrated to use .js (default is ['', '.js'])
     extensions: ['', '.js', '.jsx']
   },
-
-  eslint: {
-    failOnWarning: false,
-    failOnError: true
-  },
-
   devtool: 'source-map',
   devServer: {
     port: 8000,

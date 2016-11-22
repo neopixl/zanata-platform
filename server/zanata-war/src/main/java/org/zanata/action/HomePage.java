@@ -27,8 +27,6 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.event.TransactionPhase;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.zanata.ApplicationConfiguration;
 import org.zanata.events.HomeContentChangedEvent;
 import org.zanata.util.CommonMarkRenderer;
@@ -56,24 +54,23 @@ public class HomePage {
      * Returns the rendered, sanitised HTML for the home page content set by admin.
      * @return
      */
-    @Transactional(readOnly = true)
     public String getHtml() {
         if (html == null) {
-            String text = applicationConfiguration.getHomeContent();
-            if (text == null) {
-                html = "";
-            } else {
-                html = renderer.renderToHtmlSafe(text);
-            }
+            updateHtml(null);
         }
         return html;
     }
 
     /**
-     * Event handler to clear the cached HTML based on the latest CommonMark home content.
+     * Event handler to update the cached HTML based on the latest CommonMark home content.
      */
-    public void clearHtml(@Observes(during = TransactionPhase.AFTER_SUCCESS) HomeContentChangedEvent event) {
-        html = null;
+    public void updateHtml(@Observes(during = TransactionPhase.AFTER_SUCCESS) HomeContentChangedEvent event) {
+        String text = applicationConfiguration.getHomeContent();
+        if (text == null) {
+            html = "";
+        } else {
+            html = renderer.renderToHtmlSafe(text);
+        }
     }
 
 }

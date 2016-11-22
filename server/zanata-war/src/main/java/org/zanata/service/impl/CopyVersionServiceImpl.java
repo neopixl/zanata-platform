@@ -1,24 +1,6 @@
-/*
- * Copyright 2016, Red Hat, Inc. and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
- * distribution for a full listing of individual contributors.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package org.zanata.service.impl;
+
+import static org.zanata.transaction.TransactionUtil.runInTransaction;
 
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +40,6 @@ import org.zanata.model.type.TranslationSourceType;
 import org.zanata.security.ZanataIdentity;
 import org.zanata.service.CopyVersionService;
 import org.zanata.service.VersionStateCache;
-import org.zanata.transaction.TransactionUtil;
 import org.zanata.util.JPACopier;
 import org.zanata.util.TranslationUtil;
 
@@ -105,9 +86,6 @@ public class CopyVersionServiceImpl implements CopyVersionService {
 
     @Inject
     private ZanataIdentity identity;
-
-    @Inject
-    private TransactionUtil transactionUtil;
 
     // Stop watch for textFlow and target copy process
     private Stopwatch copyTfAndTftStopWatch = Stopwatch.createUnstarted();
@@ -225,7 +203,7 @@ public class CopyVersionServiceImpl implements CopyVersionService {
     protected Map<Long, Long> copyDocumentBatch(Long versionId,
             Long newVersionId, int batchStart, int batchLength) {
         try {
-            return transactionUtil.call(() -> copyDocument(
+            return runInTransaction(() -> copyDocument(
                     versionId, newVersionId, batchStart, batchLength));
         } catch (Exception e) {
             log.warn("exception during copy document", e);
@@ -329,7 +307,7 @@ public class CopyVersionServiceImpl implements CopyVersionService {
     protected Map<Long, Long> copyTextFlowBatch(Long documentId,
             Long newDocumentId, int batchStart, int batchLength) {
         try {
-            return transactionUtil.call(() -> this.copyTextFlows(documentId,
+            return runInTransaction(() -> this.copyTextFlows(documentId,
                     newDocumentId, batchStart, batchLength));
         } catch (Exception e) {
             log.warn("exception during copy text flow", e);
@@ -375,7 +353,7 @@ public class CopyVersionServiceImpl implements CopyVersionService {
     protected int copyTextFlowTargetBatch(Long tfId, Long newTfId,
             int batchStart, int batchLength) {
         try {
-            return transactionUtil.call(() -> this.copyTextFlowTargets(tfId,
+            return runInTransaction(() -> this.copyTextFlowTargets(tfId,
                     newTfId, batchStart, batchLength));
         } catch (Exception e) {
             log.warn("exception during copy text flow target", e);

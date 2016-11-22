@@ -57,10 +57,10 @@ const getUserStatistics = (username, fromDate, toDate) => {
   }
 }
 
-const loadUserStats = (username, dateRange) => {
+const loadUserStats = (username, dateRangeOption) => {
   return (dispatch, getState) => {
-    const dates = utilsDate.getDateRangeFromOption(dateRange)
-    dispatch(getUserStatistics(username, dates.fromDate, dates.toDate))
+    const dateRange = utilsDate.getDateRangeFromOption(dateRangeOption)
+    dispatch(getUserStatistics(username, dateRange.fromDate, dateRange.toDate))
   }
 }
 
@@ -128,7 +128,7 @@ export const profileInitialLoad = (username) => {
     if (isEmpty(username) && !config.permission.isLoggedIn) {
       // redirect to login screen if no username is found url
       // and user is not logged in
-      window.location = config.baseUrl + config.links.loginUrl + '#profile'
+      window.location = config.baseUrl + config.links.loginUrl
     } else {
       dispatch(getUserInfo(dispatch, username,
         getState().profile.dateRange))
@@ -136,11 +136,11 @@ export const profileInitialLoad = (username) => {
   }
 }
 
-export const dateRangeChanged = (dateRange) => {
+export const dateRangeChanged = (dataRangeOption) => {
   return (dispatch, getState) => {
     const username = getState().profile.user.username
-    dispatch(updateDateRange(dateRange))
-    dispatch(loadUserStats(username, dateRange))
+    dispatch(updateDateRange(dataRangeOption))
+    dispatch(loadUserStats(username, dataRangeOption))
   }
 }
 

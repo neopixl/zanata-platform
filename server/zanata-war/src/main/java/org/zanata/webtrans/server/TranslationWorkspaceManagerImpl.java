@@ -34,6 +34,7 @@ import org.zanata.webtrans.shared.model.ProjectIterationId;
 import org.zanata.webtrans.shared.model.ValidationAction;
 import org.zanata.webtrans.shared.model.ValidationAction.State;
 import org.zanata.webtrans.shared.model.ValidationId;
+import org.zanata.webtrans.shared.model.WorkspaceContext;
 import org.zanata.webtrans.shared.model.WorkspaceId;
 import org.zanata.webtrans.shared.rpc.ExitWorkspace;
 import org.zanata.webtrans.shared.rpc.WorkspaceContextUpdate;
@@ -50,7 +51,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
-import static org.zanata.transaction.TransactionUtilImpl.runInTransaction;
+import static org.zanata.transaction.TransactionUtil.runInTransaction;
 
 @javax.enterprise.context.ApplicationScoped
 @Named("translationWorkspaceManager")

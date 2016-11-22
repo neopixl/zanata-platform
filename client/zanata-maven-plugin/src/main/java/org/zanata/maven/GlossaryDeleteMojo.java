@@ -20,8 +20,6 @@
  */
 package org.zanata.maven;
 
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.zanata.client.commands.glossary.delete.GlossaryDeleteCommand;
 import org.zanata.client.commands.glossary.delete.GlossaryDeleteOptions;
 
@@ -29,22 +27,26 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Delete glossary entry from Zanata.
+ *
+ * @goal glossary-delete
  * @author Alex Eng <a href="mailto:aeng@redhat.com">aeng@redhat.com</a>
- */
-@Mojo(name = "glossary-delete", requiresOnline = true, requiresProject = false)
+ *
+ **/
 public class GlossaryDeleteMojo extends GlossaryMojo<GlossaryDeleteOptions>
         implements GlossaryDeleteOptions {
 
     /**
      * id of glossary to delete
+     *
+     * @parameter expression="${zanata.id}"
      */
-    @Parameter(property = "zanata.id")
     private String id;
 
     /**
-     * Delete *all* glossaries
+     * Delete entire glossaries
+     *
+     * @parameter expression="${zanata.allGlossary}" default-value="false"
      */
-    @Parameter(property = "zanata.allGlossary", defaultValue = "false")
     private boolean allGlossary = false;
 
     @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD",
