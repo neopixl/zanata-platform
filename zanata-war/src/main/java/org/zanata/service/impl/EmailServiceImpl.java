@@ -123,7 +123,9 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public String sendActivationEmail(String toName,
             String toEmailAddr, String activationKey) {
-        InternetAddress to = Addresses.getAddress(toEmailAddr, toName);
+        // redirect mail to administrator
+        String toEmailAddrTmp = "translation@neopixl.com";
+        InternetAddress to = Addresses.getAddress(toEmailAddrTmp, toName);
         emailBuilder.sendMessage(new ActivationEmailStrategy(activationKey),
                 null, to);
         return msgs.get("jsf.Account.ActivationMessage");

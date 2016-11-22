@@ -53,10 +53,10 @@
 
   <ui:define name="center_content">
     <h:panelGroup id="main_content" layout="block">
-      <ui:fragment rendered="#{projectAction.getEmpty()}">
+      <ui:fragment rendered="#{projectAction.getEmpty() and identity.loggedIn}">
         <h:outputText value="#{msgs['jsf.NoProjectExists']}"/>
       </ui:fragment>
-      <ui:fragment rendered="#{!projectAction.getEmpty()}">
+      <ui:fragment rendered="#{!projectAction.getEmpty() and identity.loggedIn}">
         <h:form id="form">
 
           <div style="text-align: center">
