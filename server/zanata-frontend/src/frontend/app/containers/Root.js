@@ -26,16 +26,24 @@ export default class Root extends Component {
           <Router history={history}>
             <Route component={App} >
               <Route path='explore' component={Explore} />
+<<<<<<< HEAD
               <Route path='testmodal' component={TestModal} />
+=======
+              <Route path='glossary/project/:projectSlug'
+                component={Glossary} />
+>>>>>>> eda82cd0166f128c6bc0da35fc56798c179e848c
               <Route path='glossary' component={Glossary} />
               <Route path='languages' component={Languages} />
               <Route path='styleguide' component={StyleGuide} />
               <Route path='profile/view/:username' component={UserProfile} />
+<<<<<<< HEAD
               <Route path='project/:projectSlug/glossary'
                 component={Glossary} />
               <Route path='users' component={Users} />
               <Route path='roles' component={Roles} />
               <Route path='search' component={Search} />
+=======
+>>>>>>> eda82cd0166f128c6bc0da35fc56798c179e848c
               <Redirect from='profile' to={`profile/view/${username}`} />
             </Route>
           </Router>
