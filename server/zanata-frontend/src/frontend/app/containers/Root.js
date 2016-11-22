@@ -27,6 +27,11 @@ export default class Root extends Component {
             <Route component={App} >
               <Route path='explore' component={Explore} />
               <Route path='testmodal' component={TestModal} />
+<<<<<<< HEAD
+=======
+              <Route path='glossary/project/:projectSlug'
+                component={Glossary} />
+>>>>>>> 8e73c95e6e33254237abab6721d66400727933fd
               <Route path='glossary' component={Glossary} />
               <Route path='languages' component={Languages} />
               <Route path='styleguide' component={StyleGuide} />
